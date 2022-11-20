@@ -1,0 +1,81 @@
+irb(main):013:0> Brewery.create name: "BrewDog", year: 2007
+  TRANSACTION (0.1ms)  begin transaction
+  Brewery Create (1.1ms)  INSERT INTO "breweries" ("name", "year", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["name", "BrewDog"], ["year", 2007], ["created_at", "2022-11-20 12:51:17.960929"], ["updated_at", "2022-11-20 12:51:17.960929"]]                  
+  TRANSACTION (1.0ms)  commit transaction                          
+=>                                                                 
+#<Brewery:0x000000010b5e8bc8                                       
+ id: 4,                                                            
+ name: "BrewDog",                                                  
+ year: 2007,                                                       
+ created_at: Sun, 20 Nov 2022 12:51:17.960929000 UTC +00:00,       
+ updated_at: Sun, 20 Nov 2022 12:51:17.960929000 UTC +00:00>       
+irb(main):014:0> Brewery.all
+  Brewery Load (0.3ms)  SELECT "breweries".* FROM "breweries"
+=>                                                                 
+[#<Brewery:0x000000010aa6cc68                                      
+  id: 1,                                                           
+  name: "Koff",                                                    
+  year: 1897,                                                      
+  created_at: Sun, 20 Nov 2022 12:45:01.317555000 UTC +00:00,      
+  updated_at: Sun, 20 Nov 2022 12:45:01.317555000 UTC +00:00>,     
+ #<Brewery:0x000000010aa6cb50                                      
+  id: 2,                                                           
+  name: "Malmgard",                                                
+  year: 2001,                                                      
+  created_at: Sun, 20 Nov 2022 12:45:02.491436000 UTC +00:00,      
+  updated_at: Sun, 20 Nov 2022 12:45:02.491436000 UTC +00:00>,     
+ #<Brewery:0x000000010aa6ca88                                      
+  id: 3,
+  name: "Weihenstephaner",
+  year: 1040,
+  created_at: Sun, 20 Nov 2022 12:45:02.494465000 UTC +00:00,
+  updated_at: Sun, 20 Nov 2022 12:45:02.494465000 UTC +00:00>,
+ #<Brewery:0x000000010aa6c9c0
+  id: 4,
+  name: "BrewDog",
+  year: 2007,
+  created_at: Sun, 20 Nov 2022 12:51:17.960929000 UTC +00:00,
+  updated_at: Sun, 20 Nov 2022 12:51:17.960929000 UTC +00:00>]
+irb(main):015:0> b = Brewery.find_by name: "BrewDog"
+  Brewery Load (0.3ms)  SELECT "breweries".* FROM "breweries" WHERE "breweries"."name" = ? LIMIT ?  [["name", "BrewDog"], ["LIMIT", 1]]                                  
+=>                                                                     
+#<Brewery:0x000000010b439b88                                           
+...                                                                    
+irb(main):016:0> v
+(irb):16:in `<main>': undefined local variable or method `v' for main:Object (NameError)
+                                                                       
+v                                                                      
+^                                                                      
+irb(main):017:0> b
+=> 
+#<Brewery:0x000000010b439b88                                           
+ id: 4,                                                                
+ name: "BrewDog",                                                      
+ year: 2007,                 
+ created_at: Sun, 20 Nov 2022 12:51:17.960929000 UTC +00:00,
+ updated_at: Sun, 20 Nov 2022 12:51:17.960929000 UTC +00:00>
+irb(main):018:0> b.beers.create name: "Punk IPA" , style: "IPA"
+  TRANSACTION (0.2ms)  begin transaction
+  Beer Create (0.9ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Punk IPA"], ["style", "IPA"], ["brewery_id", 4], ["created_at", "2022-11-20 12:53:00.016577"], ["updated_at", "2022-11-20 12:53:00.016577"]]                
+  TRANSACTION (1.2ms)  commit transaction                                                         
+=>                                                                                                
+#<Beer:0x000000010b3f9100                                                                         
+ id: 8,                                                                                           
+ name: "Punk IPA",                                                                                
+ style: "IPA",                                                                                    
+ brewery_id: 4,                                                                                   
+ created_at: Sun, 20 Nov 2022 12:53:00.016577000 UTC +00:00,                                      
+ updated_at: Sun, 20 Nov 2022 12:53:00.016577000 UTC +00:00>                                      
+irb(main):019:0> b.beers.create name: "Nanny State", style: "lowalcohol"
+  TRANSACTION (0.1ms)  begin transaction
+  Beer Create (0.5ms)  INSERT INTO "beers" ("name", "style", "brewery_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["name", "Nanny State"], ["style", "lowalcohol"], ["brewery_id", 4], ["created_at", "2022-11-20 12:53:27.340609"], ["updated_at", "2022-11-20 12:53:27.340609"]]
+  TRANSACTION (1.7ms)  commit transaction                                       
+=>                                                                              
+#<Beer:0x000000010b78bd40                                                       
+ id: 9,                                                                         
+ name: "Nanny State",                                                           
+ style: "lowalcohol",                                                           
+ brewery_id: 4,                                                                 
+ created_at: Sun, 20 Nov 2022 12:53:27.340609000 UTC +00:00,                    
+ updated_at: Sun, 20 Nov 2022 12:53:27.340609000 UTC +00:00>                    
+irb(main):020:0> 
