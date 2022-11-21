@@ -2,6 +2,7 @@
 <p style="color: green"><%= notice %></p>
 
 <h2>List of ratings</h2>
+<%= link_to "Rate beer", 'ratings/new' %>
 <div id="ratings">
     <ul>
     <% @ratings.each do |rating| %>
