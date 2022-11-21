@@ -5,7 +5,7 @@
 <div id="ratings">
     <ul>
     <% @ratings.each do |rating| %>
-    <li> <%= rating.score %> </li>
+    <li> <%= "#{Beer.find_by(id:rating.beer_id).name} #{rating.score}"  %> </li>
     <% end %>
     </ul>
 </div>
