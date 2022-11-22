@@ -20,6 +20,7 @@ class BreweriesController < ApplicationController
 
   # GET /breweries/1/edit
   def edit
+    render :edit
   end
 
   # POST /breweries or /breweries.json
@@ -59,6 +60,8 @@ class BreweriesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

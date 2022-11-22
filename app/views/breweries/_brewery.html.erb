@@ -17,4 +17,12 @@
     <em>Established in <%= brewery.year %></em>
   </p>
 
+  <p>
+    <% if brewery.ratings.empty? %>
+      <p> Brewery has not yet been rated!  </p>
+    <% else %>
+      <%= "Beer has #{pluralize(brewery.ratings.count, 'rating')} with average of #{brewery.average_rating}." %>
+    <% end %> 
+  </p>
+
 </div>
