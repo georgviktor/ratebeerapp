@@ -1,5 +1,6 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: %i[ show edit update destroy ]
+  before_action :authenticate, only: [:destroy]
 
   # GET /breweries or /breweries.json
   def index
@@ -11,8 +12,6 @@ class BreweriesController < ApplicationController
   def show
   end
 
- 
-
   # GET /breweries/new
   def new
     @brewery = Brewery.new
@@ -20,7 +19,6 @@ class BreweriesController < ApplicationController
 
   # GET /breweries/1/edit
   def edit
-    render :edit
   end
 
   # POST /breweries or /breweries.json
@@ -56,7 +54,7 @@ class BreweriesController < ApplicationController
     @brewery.destroy
 
     respond_to do |format|
-      format.html { redirect_to breweries_url, notice: "Brewery was successfully destroyed." }
+      format.html { redirect_to breweries_path, notice: "Brewery was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -67,11 +65,21 @@ class BreweriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_brewery
       @brewery = Brewery.find(params[:id])
-      render :show
+      
     end
 
     # Only allow a list of trusted parameters through.
     def brewery_params
       params.require(:brewery).permit(:name, :year)
     end
+
+    def authenticate
+      # admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
+
+      authenticate_or_request_with_http_basic do |username, password|
+        raise "Wrong username or password" unless username == "admin" and password == "secret"
+        return true
+      end
+    end
+
 end
