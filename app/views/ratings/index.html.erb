@@ -2,11 +2,14 @@
 <p style="color: green"><%= notice %></p>
 
 <h2>List of ratings</h2>
-<%= link_to "Rate beer", 'ratings/new' %>
+<%= link_to "Rate beer", new_rating_path %>
 <div id="ratings">
     <ul>
     <% @ratings.each do |rating| %>
-    <li> <%= "#{Beer.find_by(id:rating.beer_id).name} #{rating.score}"  %> </li>
+        <li> 
+            <%= "#{Beer.find_by(id:rating.beer_id).name} #{rating.score}"  %>
+            <%= button_to 'delete', rating_path(rating.id), method: :delete, form: { data: { 'turbo-confirm': 'Are you sure?' } } %>
+        </li>
     <% end %>
     </ul>
 </div>
